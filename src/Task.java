@@ -16,7 +16,7 @@ public class Task {
         return id;
     }
 
-    public String getTitle() {
+    public String getTitle() {   //todo нужны ли данные методы, если они не используются на данный момент?
         return title;
     }
 
