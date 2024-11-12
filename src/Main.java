@@ -1,3 +1,9 @@
+import manager.TaskManager;
+import tasks.Epic;
+import tasks.Status;
+import tasks.Subtask;
+import tasks.Task;
+
 import java.util.List;
 
 public class Main {
@@ -5,8 +11,8 @@ public class Main {
         TaskManager manager = new TaskManager();
 
         // создание двух задач
-        Task task1 = new Task(0, "Задача 1", "Описание задачи 1", Status.NEW);
-        Task task2 = new Task(0, "Задача 2", "Описание задачи 2", Status.NEW);
+        Task task1 = new Task("Задача 1", "Описание задачи 1");
+        Task task2 = new Task("Задача 2", "Описание задачи 2");
         manager.addNewTask(task1);
         manager.addNewTask(task2);
 
@@ -34,21 +40,21 @@ public class Main {
         }
 
         // создание эпиков и подзадач
-        Epic epic1 = new Epic(0, "Эпик 1", "Описание эпика 1");
+        Epic epic1 = new Epic("Эпик 1", "Описание эпика 1");
         manager.addNewEpic(epic1);
 
-        Subtask subtask1 = new Subtask(0, "Подзадача 1", "Описание подзадачи 1", Status.NEW, epic1.getId());
-        Subtask subtask2 = new Subtask(0, "Подзадача 2", "Описание подзадачи 2", Status.NEW, epic1.getId());
+        Subtask subtask1 = new Subtask("Подзадача 1", "Описание подзадачи 1", epic1.getId());
+        Subtask subtask2 = new Subtask("Подзадача 2", "Описание подзадачи 2", epic1.getId());
         manager.addNewSubtask(subtask1);
         manager.addNewSubtask(subtask2);
 
-        Epic epic2 = new Epic(0, "Эпик 2", "Описание эпика 2");
+        Epic epic2 = new Epic("Эпик 2", "Описание эпика 2");
         manager.addNewEpic(epic2);
 
-        Subtask subtask3 = new Subtask(0, "Подзадача 3", "Описание подзадачи 3", Status.NEW, epic2.getId());
+        Subtask subtask3 = new Subtask("Подзадача 3", "Описание подзадачи 3", epic2.getId());
         manager.addNewSubtask(subtask3);
 
-        // Печать всех задач, эпиков и подзадач
+        // печать всех задач, эпиков и подзадач
         System.out.println("\n--- Список задач ---");
         for (Task task : manager.getTasks()) {
             System.out.println(task);
@@ -64,7 +70,7 @@ public class Main {
             System.out.println(subtask);
         }
 
-        // Проверка получения подзадач эпика
+        // проверка получения подзадач эпика
         List<Subtask> subtasksOfEpic1 = manager.getEpicSubtasks(epic1.getId());
         System.out.println("\nПодзадачи для Эпик 1: " + subtasksOfEpic1);
         if (subtasksOfEpic1.size() == 2 && subtasksOfEpic1.contains(subtask1) && subtasksOfEpic1.contains(subtask2)) {
@@ -116,7 +122,7 @@ public class Main {
         manager.deleteTask(task1.getId());
         manager.deleteEpic(epic2.getId());
 
-        // Печать после удаления
+        // печать после удаления
         System.out.println("\n--- Список задач после удаления ---");
         for (Task task : manager.getTasks()) {
             System.out.println(task);
@@ -136,7 +142,7 @@ public class Main {
         // очистка всех задач
         System.out.println("\n--- Очистка всех задач ---");
         manager.deleteTasks();
-        manager.deleteEpics(); // Учитывая, что эпики в нашей логике будут очищать и подзадачи
+        manager.deleteEpics(); // учитывая, что эпики в нашей логике будут очищать и подзадачи
         manager.deleteSubtasks();
 
         if (manager.getTasks().isEmpty() && manager.getEpics().isEmpty() && manager.getSubtasks().isEmpty()) {

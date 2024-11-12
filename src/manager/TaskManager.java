@@ -1,12 +1,19 @@
+package manager;
+
+import tasks.Epic;
+import tasks.Status;
+import tasks.Subtask;
+import tasks.Task;
+
 import java.util.*;
 
 public class TaskManager {
-    private static int idCounter = 0; //для счетчика
+    private int idCounter = 1; // todo изменен модификатор
     private Map<Integer, Task> tasks = new HashMap<>();
     private Map<Integer, Epic> epics = new HashMap<>();
     private Map<Integer, Subtask> subtasks = new HashMap<>();
 
-    public static int getNewTaskId() {
+    private int getNewTaskId() {  // todo изменен модификатор
         return idCounter++;
     }
 
@@ -20,7 +27,7 @@ public class TaskManager {
         return new ArrayList<>(subtasks.values());
     }
 
-    // возвращает список всех всех эпиков из epics
+    // возвращает список всех эпиков из epics
     public List<Epic> getEpics() {
         return new ArrayList<>(epics.values());
     }
@@ -58,7 +65,7 @@ public class TaskManager {
     // добавляет новую задачу в список, генерируя для нее уникальный айди и возвращает этот айди
     public int addNewTask(Task task) {
         int id = getNewTaskId();
-        task.id = id;
+        task.setId(id);  // todo теперь используются сеттеры и геттеры
         tasks.put(id, task);
         return id;
     }
@@ -66,7 +73,7 @@ public class TaskManager {
     // добавляет новый эпик в список, генерируя для нее уникальный айди и возвращает этот айди
     public int addNewEpic(Epic epic) {
         int id = getNewTaskId();
-        epic.id = id;
+        epic.setId(id);
         epics.put(id, epic);
         return id;
     }
@@ -77,12 +84,12 @@ public class TaskManager {
     public Integer addNewSubtask(Subtask subtask) {
         Epic epic = epics.get(subtask.getEpicId());
         if (epic == null) {
-            return null; // Невозможно добавить подзадачу без существующего эпика
+            return null;
         }
         int id = getNewTaskId();
-        subtask.id = id;
+        subtask.setId(id);
         subtasks.put(id, subtask);
-        epic.getSubtaskIds().add(id);
+        epic.addSubtask(id);
         updateEpicStatus(epic);
         return id;
     }
@@ -134,7 +141,7 @@ public class TaskManager {
         if (subtask != null) {
             Epic epic = epics.get(subtask.getEpicId());
             if (epic != null) {
-                epic.getSubtaskIds().remove(Integer.valueOf(id));
+                epic.removeSubtask(id); // todo больше нет приведения к Integer
                 updateEpicStatus(epic);
             }
         }
