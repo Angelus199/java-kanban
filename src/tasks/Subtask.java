@@ -13,7 +13,7 @@ public class Subtask extends Task {
         return epicId;
     }
 
-    //для удобной печати объектов tasks.Subtask
+    //для удобной печати объектов
     @Override
     public String toString() {
         return "tasks.Subtask{" + "id=" + id + ", title='" + title + '\'' +

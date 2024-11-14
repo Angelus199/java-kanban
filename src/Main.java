@@ -1,4 +1,5 @@
 import manager.TaskManager;
+import manager.InMemoryTaskManager;
 import tasks.Epic;
 import tasks.Status;
 import tasks.Subtask;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        TaskManager manager = new TaskManager();
+        InMemoryTaskManager manager = new InMemoryTaskManager();
 
         // создание двух задач
         Task task1 = new Task("Задача 1", "Описание задачи 1");
@@ -138,17 +139,10 @@ public class Main {
             System.out.println(subtask);
         }
 
-
-        // очистка всех задач
-        System.out.println("\n--- Очистка всех задач ---");
-        manager.deleteTasks();
-        manager.deleteEpics(); // учитывая, что эпики в нашей логике будут очищать и подзадачи
-        manager.deleteSubtasks();
-
-        if (manager.getTasks().isEmpty() && manager.getEpics().isEmpty() && manager.getSubtasks().isEmpty()) {
-            System.out.println("Все задачи, эпики и подзадачи успешно удалены");
-        } else {
-            System.out.println("Ошибка при очистке всех задач, эпиков и подзадач");
+        //история
+        System.out.println("\n---История: ---");
+        for (Task task : manager.getHistory()) {
+            System.out.println(task);
         }
     }
 }

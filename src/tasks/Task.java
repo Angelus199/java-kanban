@@ -6,14 +6,14 @@ public class Task {
     protected String description;
     protected Status status;
 
-    public Task(String title, String description) { // todo изменен конструктор теперь принимает только 2 параметра
+    public Task(String title, String description) {
         this.title = title;
         this.description = description;
-        this.status = Status.NEW;   // todo статус инициализирован значением NEW
+        this.status = Status.NEW;   //
     }
 
     //геттеры и сеттеры
-    public void setTitle(String title) {  // todo реализованы сеттеры для description, title
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -46,7 +46,7 @@ public class Task {
     }
 
 
-    // todo переопределены equals() и hashCode()
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -60,7 +60,7 @@ public class Task {
         return Integer.hashCode(id);
     }
 
-    //переопределяем метод для удобной печати объектов Task
+    //переопределяем метод для удобной печати объектов
     @Override
     public String toString() {
         return "tasks.Task{" + "id=" + id + ", title='" + title + '\'' +

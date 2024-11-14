@@ -17,11 +17,16 @@ public class Epic extends Task {
         return subtaskIds;
     }
 
-    public void addSubtask(int id) {  // todo реализация в epic метода добавления в список
+    public boolean addSubtask(int id) {
+        if (id == this.id) {
+            return false; // не добавляем себя
+        }
         subtaskIds.add(id);
+        return true;
     }
 
-    public void removeSubtask(int id) { // todo реализация в epic метода удаления в список
+
+    public void removeSubtask(int id) {
         subtaskIds.remove(Integer.valueOf(id));
     }
 
@@ -29,7 +34,7 @@ public class Epic extends Task {
         subtaskIds.clear();
     }
 
-    //для удобной печати объектов tasks.Epic
+    //для удобной печати объектов
     @Override
     public String toString() {
         return "tasks.Epic{" + "id=" + id + ", title='" + title + '\'' +
